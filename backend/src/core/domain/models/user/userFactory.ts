@@ -16,6 +16,7 @@ export type userFactoryArgs = {
   email?: Email;
   mobile?: Phone;
   hashedPassword?: HashedPassword;
+  salt?: string;
   version?: number;
   role: RoleModel;
 };
@@ -29,6 +30,7 @@ export function roleFactory({
   email = null,
   mobile = null,
   hashedPassword = null,
+  salt = null,
   version = 1,
   role,
 }: userFactoryArgs): Result<UserModelImplement, IFormatErrorMessage> {
@@ -55,6 +57,7 @@ export function roleFactory({
   user.email = email;
   user.mobile = mobile;
   user.hashedPassword = hashedPassword;
+  user.salt = salt;
   user.version = version;
   user.role = role;
 
