@@ -60,7 +60,7 @@ function validateDisplayName(display_name) {
   return true;
 }
 
-export default function isEmail(str: string, options) {
+export function isEmail(str: string, options: any = {}) {
   options = merge(options, default_email_options);
 
   if (options.require_display_name || options.allow_display_name) {

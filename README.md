@@ -42,4 +42,5 @@ Stena-erp is an enterprice resource planning system.
  19. [x] Role controller, use cases
  20. [x] Big refactoring
  21. [x] Fix roleFactory
- 22. [ ] User model
+ 22. [x] User model
+ 23. [ ] User repository
