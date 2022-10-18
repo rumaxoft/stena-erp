@@ -20,7 +20,7 @@ export type userFactoryArgs = {
   version?: number;
   role: RoleModel;
 };
-export function roleFactory({
+export function userFactory({
   id,
   createdAt,
   updatedAt,
