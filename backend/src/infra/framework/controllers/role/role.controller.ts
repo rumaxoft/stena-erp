@@ -24,12 +24,18 @@ import {
 } from '@/use-cases/role';
 import {
   ApiBadRequestResponse,
+  ApiBody,
+  ApiCreatedResponse,
   ApiInternalServerErrorResponse,
   ApiNotFoundResponse,
+  ApiOkResponse,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
 import { ErrorService } from '../../errors/error.service';
+import { SwaggerCreateRoleDto } from './swagger-dto/swagger-create-role.dto';
+import { SwaggerRolePresenter } from './swagger-dto/swagger-role.presenter';
+import { SwaggerUpdateRoleTitleDto } from './swagger-dto/swagger-update-role-title.dto';
 
 @Controller()
 @ApiTags('role')
@@ -45,17 +51,18 @@ export class RoleController {
   ) {}
 
   @Post('role')
-  @ApiResponse({
-    status: 201,
-    description: 'created',
-  })
   @ApiBadRequestResponse({
     description: 'bad request',
   })
   @ApiInternalServerErrorResponse({
     description: 'Internal error',
   })
-  @ApiNotFoundResponse({ description: 'not found' })
+  @ApiBody({
+    type: SwaggerCreateRoleDto,
+  })
+  @ApiCreatedResponse({
+    type: SwaggerRolePresenter,
+  })
   async create(@Body() createRoleDto: CreateRoleDto): Promise<RolePresenter> {
     const result = await this.createRoleUseCase.execute(createRoleDto);
     if (result.isOk()) {
@@ -67,13 +74,13 @@ export class RoleController {
   }
 
   @Get('roles')
-  @ApiResponse({
-    status: 200,
-    description: 'response was succesful',
-  })
   @ApiInternalServerErrorResponse({
     description: 'Internal error',
   })
+  @ApiNotFoundResponse({
+    description: 'Not found',
+  })
+  @ApiOkResponse({ type: SwaggerRolePresenter, isArray: true })
   async findAll(): Promise<RolesPresenter> {
     const result = await this.findAllRoleUseCase.execute();
     if (result.isOk()) {
@@ -85,12 +92,14 @@ export class RoleController {
   }
 
   @Get('role/title/:title')
-  @ApiResponse({
-    status: 200,
-    description: 'response was succesful',
-  })
   @ApiInternalServerErrorResponse({
     description: 'Internal error',
+  })
+  @ApiNotFoundResponse({
+    description: 'Not found',
+  })
+  @ApiOkResponse({
+    type: SwaggerRolePresenter,
   })
   async findByTitle(@Param('title') title: string): Promise<RolePresenter> {
     const result = await this.findRoleByTitleUseCase.execute({
@@ -105,12 +114,14 @@ export class RoleController {
   }
 
   @Get('role/:id')
-  @ApiResponse({
-    status: 200,
-    description: 'response was succesful',
+  @ApiOkResponse({
+    type: SwaggerRolePresenter,
   })
   @ApiInternalServerErrorResponse({
     description: 'Internal error',
+  })
+  @ApiNotFoundResponse({
+    description: 'Not found',
   })
   async findById(@Param('id') id: string): Promise<RolePresenter> {
     const result = await this.findRoleByIdUseCase.execute({
@@ -125,12 +136,20 @@ export class RoleController {
   }
 
   @Put()
-  @ApiResponse({
-    status: 200,
-    description: 'response was succesful',
+  @ApiOkResponse({
+    type: SwaggerRolePresenter,
+  })
+  @ApiNotFoundResponse({
+    description: 'Not found',
   })
   @ApiInternalServerErrorResponse({
     description: 'Internal error',
+  })
+  @ApiNotFoundResponse({
+    description: 'Not found',
+  })
+  @ApiBody({
+    type: SwaggerUpdateRoleTitleDto,
   })
   async updateTitle(
     @Body() updateDto: UpdateRoleTitleDto,
@@ -146,11 +165,14 @@ export class RoleController {
 
   @Delete(':id')
   @ApiResponse({
-    status: 200,
-    description: 'response was succesful',
+    status: 204,
+    description: 'success',
   })
   @ApiInternalServerErrorResponse({
     description: 'Internal error',
+  })
+  @ApiNotFoundResponse({
+    description: 'Not found',
   })
   async delete(@Param('id') id: string): Promise<string> {
     if (id) {
