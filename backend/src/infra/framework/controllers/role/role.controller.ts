@@ -114,7 +114,6 @@ export class RoleController {
     description: 'Internal error',
   })
   async findById(@Param('id') id: string): Promise<RolePresenter> {
-    console.log('id ', id);
     const result = await this.findRoleByIdUseCase.execute({
       id,
     });
