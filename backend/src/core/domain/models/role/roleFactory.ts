@@ -1,4 +1,4 @@
-import { RoleModel, RoleModelImplement } from './role.model';
+import { RoleModelImplement } from './role.model';
 import { Result, ok, err } from '@/shared/helpers/result-monad';
 import { isUUID } from '@/shared/helpers/validation';
 import { errorMessage } from './error';
@@ -21,7 +21,7 @@ export function roleFactory({
   isActive = true,
   description = 'no description',
   version = 1,
-}: roleFactoryArgs): Result<RoleModel, IFormatErrorMessage> {
+}: roleFactoryArgs): Result<RoleModelImplement, IFormatErrorMessage> {
   const role = new RoleModelImplement();
 
   if (!isUUID(id, 4)) {
