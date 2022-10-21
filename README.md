@@ -20,6 +20,32 @@ Stena-erp is an enterprice resource planning system.
  - Telegram bot
  - Clean architecture
 
+## Installation
+
+#### Backend
+Install the dependencies and devDependencies.
+
+```sh
+cd stena-erp/backend
+npm i
+```
+## Development
+
+#### Backend
+
+Run database in docker container.
+
+```sh
+sudo chmod +x backend/scripts/start-postgres-db.sh
+sudo .backend/scripts/start-postgres-db.sh
+```
+
+Run development server
+
+```sh
+cd backend
+npm run start:dev
+```
 ## Plan
 
  1. [x] NestJs Backend boilerplate
@@ -48,4 +74,5 @@ Stena-erp is an enterprice resource planning system.
  25. [x] User controller and module
  26. [x] Swagger Dto for role controller
  27. [x] Swagger Dto for user controller
- 28. [ ] Describe start develompent in README
+ 28. [x] Describe start develompent in README
+ 29. [ ] Add db structure diagram to the project
