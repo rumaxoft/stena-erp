@@ -208,7 +208,6 @@ export class UserController {
     description: 'Internal error',
   })
   async findById(@Param('id') id: string): Promise<UserPresenter | null> {
-    console.log('id ', id);
     const result = await this.findUserByIdUseCase.execute({
       id,
     });
@@ -230,7 +229,6 @@ export class UserController {
     description: 'Internal error',
   })
   async updateUser(@Body() updateDto: UpdateUserDto): Promise<UserPresenter> {
-    console.log('controller updateDto', updateDto);
     const result = await this.updateUserUseCase.execute(updateDto);
     if (result.isOk()) {
       return result.getResult();

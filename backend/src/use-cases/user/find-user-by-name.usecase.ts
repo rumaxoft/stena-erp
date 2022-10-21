@@ -15,7 +15,6 @@ export class FindUserByNameUseCase
   ): Promise<Result<UsersPresenter | null, IFormatErrorMessage>> {
     try {
       const existedUsers = await this.repository.findByName(dto.name);
-      console.log('existed users ', existedUsers);
       const usersPresenter: UsersPresenter = existedUsers.map((user) => {
         const userPresenter = new UserPresenter(user);
         return userPresenter;
