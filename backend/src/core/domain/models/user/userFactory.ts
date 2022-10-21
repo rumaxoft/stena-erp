@@ -2,7 +2,7 @@ import { RoleModel } from '../role/role.model';
 import { UserModelImplement } from './user.model';
 import { Result, ok, err } from '@/shared/helpers/result-monad';
 import { isUUID, isEmail, isHash } from '@/shared/helpers/validation';
-import { errorMessage } from '../role/error';
+import { errorMessage } from './error';
 import { IFormatErrorMessage } from '@/core/ports/errors/errors.interface';
 
 export type userFactoryArgs = {
@@ -26,6 +26,7 @@ export function userFactory({
   updatedAt,
   name,
   middleName = null,
+  lastName = null,
   additionalInfo = null,
   email = null,
   mobile = null,
@@ -44,6 +45,14 @@ export function userFactory({
     return err(errorMessage.EMAIL_IS_NOT_VALID);
   }
 
+  if (email === '') {
+    return err(errorMessage.EMAIL_CANT_BE_EMPTY_STRING);
+  }
+
+  if (mobile === '') {
+    return err(errorMessage.MOBILE_CANT_BE_EMPTY_STRING);
+  }
+
   if (hashedPassword && !isHash(hashedPassword, 'sha512')) {
     return err(errorMessage.PASSWORD_IS_NOT_HASH);
   }
@@ -53,6 +62,7 @@ export function userFactory({
   user.updatedAt = updatedAt;
   user.name = name;
   user.middleName = middleName;
+  user.lastName = lastName;
   user.additionalInfo = additionalInfo;
   user.email = email;
   user.mobile = mobile;
