@@ -47,4 +47,5 @@ Stena-erp is an enterprice resource planning system.
  24. [x] User usecases
  25. [x] User controller and module
  26. [x] Swagger Dto for role controller
- 27. [ ] Swagger Dto for user controller
+ 27. [x] Swagger Dto for user controller
+ 28. [ ] Describe start develompent in README
