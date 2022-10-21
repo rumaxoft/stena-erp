@@ -6,7 +6,6 @@ import {
   Post,
   Put,
   Delete,
-  Query,
 } from '@nestjs/common';
 
 import {
@@ -85,7 +84,7 @@ export class RoleController {
     }
   }
 
-  @Get('role')
+  @Get('role/title/:title')
   @ApiResponse({
     status: 200,
     description: 'response was succesful',
@@ -93,7 +92,7 @@ export class RoleController {
   @ApiInternalServerErrorResponse({
     description: 'Internal error',
   })
-  async findByTitle(@Query('title') title: string): Promise<RolePresenter> {
+  async findByTitle(@Param('title') title: string): Promise<RolePresenter> {
     const result = await this.findRoleByTitleUseCase.execute({
       title,
     });
