@@ -75,4 +75,5 @@ npm run start:dev
  26. [x] Swagger Dto for role controller
  27. [x] Swagger Dto for user controller
  28. [x] Describe start develompent in README
- 29. [ ] Add db structure diagram to the project
+ 29. [x] Add db structure diagram to the project
+ 30. [ ] Product Model
